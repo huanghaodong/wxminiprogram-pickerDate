@@ -5,5 +5,7 @@
 	isShowPicker="{{isShow_01}}"
 	bindsure="sureCallBack_01"
 	bindcancle="cancleCallBack_01"
-
+	startDate="1993-9-27"
+	endDate="2093-11-12"
+	defaultDate="2018-2-22"
 ></picker>

@@ -188,10 +188,26 @@ Component({
               })
             }
             else{
-              this.setData({
-                'columnsData[1]': defaultColumnsData[1],
-                'columnsData[2]': defaultColumnsData[2]
-              })
+              if(columnsData[1][val[1]].includes(2)){
+                if (isLeapYear(parseInt(columnsData[0][val[0]]))) {
+                  this.setData({
+                    'columnsData[1]': defaultColumnsData[1],
+                    'columnsData[2]': defaultColumnsData[2].slice(0, -1)
+                  })
+                } else {
+                  this.setData({
+                    'columnsData[1]': defaultColumnsData[1],
+                    'columnsData[2]': defaultColumnsData[2].slice(0, -2)
+                  })
+                }
+
+              }else{
+                this.setData({
+                  'columnsData[1]': defaultColumnsData[1],
+                  'columnsData[2]': defaultColumnsData[2]
+                })
+              }
+
             }
           }
         }else if(compareIndex === 1){//如果在滚月
@@ -217,7 +233,7 @@ Component({
                   'columnsData[2]': defaultColumnsData[2]
                 })
               } else if(columnsData[1][val[1]] === '2月' ) {
-                if (isLeapYear(columnsData[0][val[0]])) {
+                if (isLeapYear(parseInt(columnsData[0][val[0]]))) {
                   this.setData({
                     'columnsData[2]': defaultColumnsData[2].slice(0, -1)
                   })
@@ -238,7 +254,7 @@ Component({
                 'columnsData[2]': defaultColumnsData[2]
               })
             } else if(columnsData[1][val[1]] === '2月' ) {
-              if (isLeapYear(columnsData[0][val[0]])) {
+              if (isLeapYear(parseInt(columnsData[0][val[0]]))) {
                 this.setData({
                   'columnsData[2]': defaultColumnsData[2].slice(0, -1)
                 })
