@@ -56,11 +56,9 @@
 
 
 ##### 注意
- - startDate不得早于'1970-1-1'，endDate不得晚于'2169-12-31'。
+ - 因优化性能，限制了startDate不得早于'1970-1-1'，endDate不得晚于'2169-12-31'。如需拓展，可修改picker.js中[avatar](http://thyrsi.com/t6/629/1544280401x2890186194.jpg)YEARLENGTH为年份长度，STARTYEAR为开始年份。
 
 
-## 更新日志
- - 0.0.1  初始化项目。
  
 ## 如果觉得有用，请给个start，谢谢
 # wxminiprogram-pickerDate
