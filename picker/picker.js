@@ -161,6 +161,7 @@ Component({
     },
     sure () {
       if(!scrollEnd) return;
+      console.log(tempValue)
       let backData = this._getBackDataFromValue(tempValue);
       this.setData({
         backData
@@ -269,10 +270,22 @@ Component({
           }
 
         }
-
-
+      //验证
+      val = this._validate(val);
       lastValue = val;
       tempValue = val;
+    },
+    _validate (val) {
+      let { columnsData } = this.data;
+      columnsData.forEach((v, i) => {
+        if(columnsData[i].length - 1 < val[i]){
+          val[i] = columnsData[i].length - 1;
+        }
+      })
+      this.setData({
+        value: val
+      })
+      return val;
     },
     _bindpickend(){
       scrollEnd = true;
