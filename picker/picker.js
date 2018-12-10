@@ -360,6 +360,7 @@ Component({
       return tempIndex;
     },
     _setDefault (defaultDate) {
+      if(!defaultDate) return;
       let {startDate, endDate} = this.properties;
 
       let tempArr = this._formateDateStrToArr(defaultDate)

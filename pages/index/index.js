@@ -6,10 +6,19 @@ Page({
    * 页面的初始数据
    */
   data: {
+    start:'',
     isShow_01: false,
     listData_01:[['太阳', '月亮', '星星']],
     picker_01_data:[],
 
+    isShow_02: false,
+    listData_02:[['太阳', '月亮', '星星']],
+    picker_02_data:[],
+  },
+  onLoad () {
+    this.setData({
+      start: '2018-12-10'
+    })
   },
   showPicker_01: function () {
     this.setData({
@@ -29,5 +38,20 @@ Page({
     })
   },
 
-
+  showPicker_02: function () {
+    this.setData({
+      isShow_02: true
+    })
+  },
+  sureCallBack_02 (e) {
+    this.setData({
+      isShow_02: false,
+      picker_02_data: e.detail
+    })
+  },
+  cancleCallBack_02 () {
+    this.setData({
+      isShow_02: false,
+    })
+  },
 })
