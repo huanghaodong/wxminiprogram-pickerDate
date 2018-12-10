@@ -41,6 +41,10 @@ function createEndMonthColumnsData ({endMonth}) {
   let endMonthColumnsData = endMonth === 1 ?  [`${endMonth}月`] : [...new Array(endMonth).keys()].map((v, i) => `${i + 1}月`)
   return endMonthColumnsData;
 }
+function createStartToEndMonthColumnsData ({startMonth,endMonth}) {
+  let endMonthColumnsData =  [...new Array(endMonth - startMonth + 1).keys()].map((v, i) => `${i + startMonth}月`)
+  return endMonthColumnsData;
+}
 function createStartDayColumnsData ({startYear,startMonth, startDay}) {
   let tempTotalDay = 0;
   if(bigMonth.find((v) => parseInt(v) == startMonth)){
@@ -460,6 +464,11 @@ Component({
               })
             }
           }
+        }
+        if(tempArr[0] === tempStartArr[0] && tempArr[0] === tempEndArr[0]){//默认如果跟start和end都同年
+          this.setData({
+            'columnsData[1]': createStartToEndMonthColumnsData({startMonth:tempStartArr[1],endMonth:tempEndArr[1]}),
+          })
         }
         if(tempArr[0] !== tempEndArr[0] && tempArr[0] === tempStartArr[0]){
           if(tempArr[1] === 2){

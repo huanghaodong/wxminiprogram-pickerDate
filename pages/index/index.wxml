@@ -6,7 +6,7 @@
 	bindsure="sureCallBack_01"
 	bindcancle="cancleCallBack_01"
 	startDate="2018-6-28"
-	endDate="{{temp}}"
+	endDate="2018-12-12"
 	defaultDate="2018-8-03"
 ></picker>
 <!--<button bindtap="showPicker_02">打开pickerDate2</button>-->
