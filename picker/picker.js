@@ -430,7 +430,8 @@ Component({
               })
             }
           }
-        }else if(tempArr[0] === tempEndArr[0]){
+        }
+        if(tempArr[0] === tempEndArr[0]){//默认如果跟end同年
           this.setData({
             'columnsData[1]': createEndMonthColumnsData({endMonth:tempEndArr[1]}),
           })
@@ -459,7 +460,8 @@ Component({
               })
             }
           }
-        }else{
+        }
+        if(tempArr[0] !== tempEndArr[0] && tempArr[0] === tempStartArr[0]){
           if(tempArr[1] === 2){
             if(isLeapYear(tempArr[0])){
               this.setData({

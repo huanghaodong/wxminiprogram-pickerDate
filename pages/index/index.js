@@ -15,12 +15,12 @@ Page({
     listData_02:[['太阳', '月亮', '星星']],
     picker_02_data:[],
 
-    temp:'2018-12-03'
+    temp:'2018-12-12'
   },
   onLoad () {
     setTimeout(()=>{
       this.setData({
-        temp: '2018-12-4'
+        temp: '2018-11-11'
       })
     },5000)
   },
