@@ -14,11 +14,15 @@ Page({
     isShow_02: false,
     listData_02:[['太阳', '月亮', '星星']],
     picker_02_data:[],
+
+    temp:'2018-12-03'
   },
   onLoad () {
-    this.setData({
-      start: '2018-12-10'
-    })
+    setTimeout(()=>{
+      this.setData({
+        temp: '2018-12-4'
+      })
+    },5000)
   },
   showPicker_01: function () {
     this.setData({
