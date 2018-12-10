@@ -62,7 +62,7 @@
  
  **YEARLENGTH为年份长度，STARTYEAR为开始年份。**
 
-
+ - 必须在bindsure和bindcancle中将isShowPicker设为false。
  
 ## 如果觉得有用，请给个start，谢谢
 # wxminiprogram-pickerDate
