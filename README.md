@@ -38,7 +38,7 @@
 | name | type | required | default | Description |
 | ------ | ------ | ------ | ------ |------ |
 | isShowPicker | Boolean | ✓ | false | 显示隐藏pickerDate，需要在bindsure和bindcancle中手动设为false |
-| defaultPickData | String | ✗ | '' | 设置pickerDate第一次打开时默认选择,格式为'2018-2-1'或'2018-02-01' |
+| defaultDate | String | ✗ | '' | 设置pickerDate第一次打开时默认选择,格式为'2018-2-1'或'2018-02-01' |
 | startDate | String | ✗ | '' | 设置pickerDate最早日期,格式为'2018-2-1'或'2018-02-01' |
 | endDate | String | ✗ | '' | 设置pickerDate最晚日期,格式为'2018-2-1'或'2018-02-01' |
 | indicatorStyle | String | ✗ | '' | 设置选择器中间选中框的样式（详见[picker-view](https://developers.weixin.qq.com/miniprogram/dev/component/picker-view.html)）如，每一行的高度 view |
