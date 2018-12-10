@@ -21,10 +21,7 @@ let defaultColumnsData  = createColumnsData({
 const bigMonth = ['1月', '3月', '5月', '7月', '8月', '10月', '12月'];
 const smallMonth = ['4月', '6月', '9月', '11月'];
 
-let scrollEnd = true;//滚动是否结束
-let lastValue= [0, 0, 0];
-let  isFirstOpen = true;
-let tempValue = [0, 0, 0]
+
 function createColumnsData ({yearLength, startYear, monthLength, startMonth, dayLength, startDay}) {
   let tempColumnsData  = [[],[],[]];
   tempColumnsData[0] = yearLength ? [...new Array(yearLength).keys()].map((v, i) => `${i + startYear}年`) : `${startYear}年`
@@ -140,12 +137,10 @@ Component({
     value:[],
     backData:'',
     isOpen: false,
-  },
-  detached: function() {
-    scrollEnd = true;//滚动是否结束
-    lastValue= [0, 0, 0];
-    isFirstOpen = true;
-    tempValue = [0, 0, 0]
+    scrollEnd : true,//滚动是否结束
+    lastValue : [0, 0, 0],
+    isFirstOpen : true,
+    tempValue : [0, 0, 0]
   },
   /**
    * 组件的方法列表
@@ -160,8 +155,8 @@ Component({
       this._closePicker()
     },
     sure () {
+      let { scrollEnd, tempValue} = this.data;
       if(!scrollEnd) return;
-      console.log(tempValue)
       let backData = this._getBackDataFromValue(tempValue);
       this.setData({
         backData
@@ -170,7 +165,7 @@ Component({
       this._closePicker()
     },
     _bindChange (e) {
-      let { columnsData } = this.data;
+      let { columnsData,lastValue } = this.data;
       let val = e.detail.value;
       let { startDate, endDate } = this.properties;
 
@@ -272,8 +267,8 @@ Component({
         }
       //验证
       val = this._validate(val);
-      lastValue = val;
-      tempValue = val;
+      this.data.lastValue = val;
+      this.data.tempValue = val;
     },
     _validate (val) {
       let { columnsData } = this.data;
@@ -288,16 +283,16 @@ Component({
       return val;
     },
     _bindpickend(){
-      scrollEnd = true;
+      this.data.scrollEnd = true;
     },
     _bindpickstart(){
-      scrollEnd = false;
+      this.data.scrollEnd = false;
     },
     _openPicker () {
-      if(!isFirstOpen){
+      if(!this.data.isFirstOpen){
         this._setDefault(this.data.backData)
       }
-      isFirstOpen = false;
+      this.data.isFirstOpen = false;
       this.setData({
         isOpen: true,
       })
@@ -417,8 +412,8 @@ Component({
       }
       let value = this._getValueFromDefaultDate(defaultDate);
       let backData = this._getBackDataFromValue(value);
-      tempValue = value;
-      lastValue = value;
+      this.data.tempValue = value;
+      this.data.lastValue = value;
       this.setData({
         value,
         backData
