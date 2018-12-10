@@ -7,7 +7,7 @@
 	bindcancle="cancleCallBack_01"
 	startDate="2018-6-28"
 	endDate="2093-11-12"
-	defaultDate="{{temp}}"
+	defaultDate="2018-12-03"
 ></picker>
 <!--<button bindtap="showPicker_02">打开pickerDate2</button>-->
 <!--<view>选择数据：{{picker_02_data}}</view>-->

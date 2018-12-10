@@ -391,13 +391,14 @@ Component({
     },
     _setDefault (inBackData) {
       let {startDate, endDate ,defaultDate} = this.properties;
-
+      this.setData({
+        columnsData: this._getColumnsDataFromStartAndEnd(startDate, endDate)
+      })
       if(inBackData){
         defaultDate = inBackData;
       }
-      if(!defaultDate) return;
       let tempArr = this._formateDateStrToArr(defaultDate)
-      if(startDate && endDate){//如果有起止
+      if(startDate && endDate && tempArr.length === 3){//如果有起止
         let tempStartArr = this._formateDateStrToArr(startDate);
         let tempEndArr = this._formateDateStrToArr(endDate);
         if(tempArr[0] === tempStartArr[0]){//默认如果跟start同年
@@ -478,20 +479,27 @@ Component({
             })
           }
         }
-      }else{
+      }else if(!startDate && !endDate){
         if(tempArr[1] === 2){
           if(isLeapYear(tempArr[0])){
             this.setData({
+              'columnsData[1]': defaultColumnsData[1],
               'columnsData[2]':createEndDayColumnsData({endDay: 29})
             })
           }else{
             this.setData({
+              'columnsData[1]': defaultColumnsData[1],
               'columnsData[2]':createEndDayColumnsData({endDay: 28})
             })
           }
+        }else{
+          this.setData({
+            'columnsData[1]': defaultColumnsData[1],
+            'columnsData[2]': defaultColumnsData[2]
+          })
         }
       }
-      let value = this._getValueFromDefaultDate(defaultDate);
+      let value = defaultDate === '' ? [0,0,0] : this._getValueFromDefaultDate(defaultDate);
       let backData = this._getBackDataFromValue(value);
       this.data.tempValue = value;
       this.data.lastValue = value;
