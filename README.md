@@ -28,6 +28,16 @@
 	startDate="1993-9-27"
 	endDate="2093-11-12"
 	defaultDate="2018-2-22"
+	indicatorStyle="height:80px"
+  maskStyle=""
+  titleStyle=""
+  sureStyle="color:blue;font-size:16px;"
+  cancelStyle="color:red;font-size:16px;"
+  chooseItemTextStyle="color:green;"
+  pickerHeaderStyle="background:#eee;"
+  titleText="自定义标题"
+  cancelText="cancle"
+  sureText="sure"
 ></picker>
 
 ```
