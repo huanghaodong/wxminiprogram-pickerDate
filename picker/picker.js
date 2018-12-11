@@ -7,6 +7,9 @@ const STARTMONTH = 1;
 const DAYLENGTH = 30;
 const STARTDAY = 1;
 
+let minDateStr =  `${STARTYEAR}-1-1`;
+let maxDateStr = `${STARTYEAR+YEARLENGTH-1}-12-31`;
+
 let defaultColumnsData  = createColumnsData({
   yearLength: YEARLENGTH,
   startYear: STARTYEAR,
@@ -73,6 +76,7 @@ function createStartColumnsData ({yearLength, startYear, startMonth, startDay}) 
 function isLeapYear(year) {
   return (year % 4 == 0 && year % 100 != 0) || year % 400 ==0;
 }
+
 Component({
   /**
    * 组件的属性列表
@@ -393,8 +397,8 @@ Component({
     },
     _setDefault (inBackData) {
       let {startDate, endDate ,defaultDate} = this.properties;
-      startDate = startDate === '' ? '1970-1-1' : startDate;
-      endDate = endDate === '' ? '2169-12-31' : endDate;
+      startDate = startDate === '' ? minDateStr : startDate;
+      endDate = endDate === '' ? maxDateStr : endDate;
       this.setData({
         columnsData: this._getColumnsDataFromStartAndEnd(startDate, endDate)
       })
