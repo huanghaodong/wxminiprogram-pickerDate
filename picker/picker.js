@@ -83,7 +83,7 @@ Component({
       type: String,
       value: '',
       observer: function (newVal) {
-        if (this._compareDate()) return;
+        if (newVal === '' || this._compareDate()) return;
         this._setTempData();
         this._setDefault()
       }
@@ -91,8 +91,8 @@ Component({
     startDate:{
       type: String,
       value: '',
-      observer: function (startDate) {
-          if (this._compareDate()) return;
+      observer: function (newVal) {
+          if (newVal === '' || this._compareDate()) return;
           this._setTempData();
           this._setDefault()
 
@@ -101,8 +101,8 @@ Component({
     endDate:{
       type: String,
       value: '',
-      observer: function (endDate) {
-          if (this._compareDate()) return;
+      observer: function (newVal) {
+          if (newVal === '' || this._compareDate()) return;
           this._setTempData();
           this._setDefault()
       }
