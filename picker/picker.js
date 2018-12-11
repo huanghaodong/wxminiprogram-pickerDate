@@ -1,4 +1,3 @@
-// picker/picker.js
 import { formatTime } from './tool';
 
 const YEARLENGTH = 200;
@@ -92,18 +91,18 @@ Component({
       type: String,
       value: '',
       observer: function (newVal) {
-          if (newVal === '' || this._compareDate()) return;
-          this._setTempData();
-          this._setDefault()
+        if (newVal === '' || this._compareDate()) return;
+        this._setTempData();
+        this._setDefault()
       }
     },
     endDate:{
       type: String,
       value: '',
       observer: function (newVal) {
-          if (newVal === '' || this._compareDate()) return;
-          this._setTempData();
-          this._setDefault()
+        if (newVal === '' || this._compareDate()) return;
+        this._setTempData();
+        this._setDefault()
       }
     },
     isShowPicker:{
@@ -182,100 +181,79 @@ Component({
       let val = e.detail.value;
       let { startDate, endDate } = this.properties;
 
-        let compareIndex = this._getScrollCompareIndex(lastValue, val);
-        if(compareIndex === 0){//如果在滚年
-          if(startDate){//如果有起止
-            let tempStartArr = this._formateDateStrToArr(startDate);
-            let tempEndArr = this._formateDateStrToArr(endDate);
-            if(parseInt(columnsData[0][val[0]]) == parseInt(tempStartArr[0]) ){//如果滚到startYear
+      let compareIndex = this._getScrollCompareIndex(lastValue, val);
+      if(compareIndex === 0){//如果在滚年
+        if(startDate){//如果有起止
+          let tempStartArr = this._formateDateStrToArr(startDate);
+          let tempEndArr = this._formateDateStrToArr(endDate);
+          if(parseInt(columnsData[0][val[0]]) == parseInt(tempStartArr[0]) ){//如果滚到startYear
+            this.setData({
+              'columnsData[1]': createStartMonthColumnsData({startMonth:tempStartArr[1]}),
+              'columnsData[2]': createStartDayColumnsData({startYear:tempStartArr[0],startMonth:tempStartArr[1], startDay:tempStartArr[2]})
+            })
+          }else if(parseInt(columnsData[0][val[0]]) == parseInt(tempEndArr[0]) ){//如果滚到endYear
+            this.setData({
+              'columnsData[1]': createEndMonthColumnsData({endMonth:tempEndArr[1]}),
+              'columnsData[2]': createEndDayColumnsData({endDay:tempEndArr[2]})
+            })
+          }
+          else{
+            // if(parseInt(columnsData[1][val[1]]) == 2){
+            //   if (isLeapYear(parseInt(columnsData[0][val[0]]))) {
+            //     this.setData({
+            //       'columnsData[1]': defaultColumnsData[1],
+            //       'columnsData[2]': defaultColumnsData[2].slice(0, -1)
+            //     })
+            //   } else {
+            //     this.setData({
+            //       'columnsData[1]': defaultColumnsData[1],
+            //       'columnsData[2]': defaultColumnsData[2].slice(0, -2)
+            //     })
+            //   }
+            //
+            // }else{
+            //   this.setData({
+            //     'columnsData[1]': defaultColumnsData[1],
+            //     'columnsData[2]': defaultColumnsData[2]
+            //   })
+            // }
+            if(bigMonth.find((v) => parseInt(v) == parseInt(columnsData[1][val[1]]))){
               this.setData({
-                'columnsData[1]': createStartMonthColumnsData({startMonth:tempStartArr[1]}),
-                'columnsData[2]': createStartDayColumnsData({startYear:tempStartArr[0],startMonth:tempStartArr[1], startDay:tempStartArr[2]})
+                'columnsData[1]': defaultColumnsData[1],
+                'columnsData[2]': defaultColumnsData[2].concat('31日')
               })
-            }else if(parseInt(columnsData[0][val[0]]) == parseInt(tempEndArr[0]) ){//如果滚到endYear
+            }else if(smallMonth.find((v) => parseInt(v) == parseInt(columnsData[1][val[1]]))){
               this.setData({
-                'columnsData[1]': createEndMonthColumnsData({endMonth:tempEndArr[1]}),
-                'columnsData[2]': createEndDayColumnsData({endDay:tempEndArr[2]})
+                'columnsData[1]': defaultColumnsData[1],
+                'columnsData[2]': defaultColumnsData[2]
               })
-            }
-            else{
-              // if(parseInt(columnsData[1][val[1]]) == 2){
-              //   if (isLeapYear(parseInt(columnsData[0][val[0]]))) {
-              //     this.setData({
-              //       'columnsData[1]': defaultColumnsData[1],
-              //       'columnsData[2]': defaultColumnsData[2].slice(0, -1)
-              //     })
-              //   } else {
-              //     this.setData({
-              //       'columnsData[1]': defaultColumnsData[1],
-              //       'columnsData[2]': defaultColumnsData[2].slice(0, -2)
-              //     })
-              //   }
-              //
-              // }else{
-              //   this.setData({
-              //     'columnsData[1]': defaultColumnsData[1],
-              //     'columnsData[2]': defaultColumnsData[2]
-              //   })
-              // }
-              if(bigMonth.find((v) => parseInt(v) == parseInt(columnsData[1][val[1]]))){
+            } else if(columnsData[1][val[1]] === '2月' ) {
+              if (isLeapYear(parseInt(columnsData[0][val[0]]))) {
                 this.setData({
-                  'columnsData[1]': defaultColumnsData[1],
-                  'columnsData[2]': defaultColumnsData[2].concat('31日')
+                  'columnsData[2]': defaultColumnsData[2].slice(0, -1)
                 })
-              }else if(smallMonth.find((v) => parseInt(v) == parseInt(columnsData[1][val[1]]))){
+              } else {
                 this.setData({
-                  'columnsData[1]': defaultColumnsData[1],
-                  'columnsData[2]': defaultColumnsData[2]
+                  'columnsData[2]': defaultColumnsData[2].slice(0, -2)
                 })
-              } else if(columnsData[1][val[1]] === '2月' ) {
-                if (isLeapYear(parseInt(columnsData[0][val[0]]))) {
-                  this.setData({
-                    'columnsData[2]': defaultColumnsData[2].slice(0, -1)
-                  })
-                } else {
-                  this.setData({
-                    'columnsData[2]': defaultColumnsData[2].slice(0, -2)
-                  })
-                }
               }
             }
           }
-        }else if(compareIndex === 1){//如果在滚月
-          if(startDate){//如果有起止
-            let tempStartArr = this._formateDateStrToArr(startDate);
-            let tempEndArr = this._formateDateStrToArr(endDate);
-            if(parseInt(columnsData[1][val[1]]) == parseInt(tempStartArr[1])  &&  parseInt(columnsData[0][val[0]]) == parseInt(tempStartArr[0]) ){//如果滚到startMonth
-              this.setData({
-                'columnsData[2]': createStartDayColumnsData({startYear:tempStartArr[0],startMonth:tempStartArr[1], startDay:tempStartArr[2]})
-              })
-            }else if(parseInt(columnsData[1][val[1]]) == parseInt(tempEndArr[1]) && parseInt(columnsData[0][val[0]]) == parseInt(tempEndArr[0]) ){//如果滚到endMonth
-              this.setData({
-                'columnsData[2]': createEndDayColumnsData({endDay:tempEndArr[2]})
-              })
-            }
-            else{
-              if(bigMonth.find((v) => parseInt(v) == parseInt(columnsData[1][val[1]]))){
-                this.setData({
-                  'columnsData[2]': defaultColumnsData[2].concat('31日')
-                })
-              }else if(smallMonth.find((v) => parseInt(v) == parseInt(columnsData[1][val[1]]))){
-                this.setData({
-                  'columnsData[2]': defaultColumnsData[2]
-                })
-              } else if(columnsData[1][val[1]] === '2月' ) {
-                if (isLeapYear(parseInt(columnsData[0][val[0]]))) {
-                  this.setData({
-                    'columnsData[2]': defaultColumnsData[2].slice(0, -1)
-                  })
-                } else {
-                  this.setData({
-                    'columnsData[2]': defaultColumnsData[2].slice(0, -2)
-                  })
-                }
-              }
-            }
-          }else{
+        }
+      }else if(compareIndex === 1){//如果在滚月
+        if(startDate){//如果有起止
+          let tempStartArr = this._formateDateStrToArr(startDate);
+          let tempEndArr = this._formateDateStrToArr(endDate);
+          if(parseInt(columnsData[1][val[1]]) == parseInt(tempStartArr[1])  &&  parseInt(columnsData[0][val[0]]) == parseInt(tempStartArr[0]) ){//如果滚到startMonth
+            this.setData({
+              'columnsData[2]': createStartDayColumnsData({startYear:tempStartArr[0],startMonth:tempStartArr[1], startDay:tempStartArr[2]})
+            })
+          }else if(parseInt(columnsData[1][val[1]]) == parseInt(tempEndArr[1]) && parseInt(columnsData[0][val[0]]) == parseInt(tempEndArr[0]) ){//如果滚到endMonth
+            this.setData({
+              'columnsData[2]': createEndDayColumnsData({endDay:tempEndArr[2]})
+            })
+          }
+          else{
             if(bigMonth.find((v) => parseInt(v) == parseInt(columnsData[1][val[1]]))){
               this.setData({
                 'columnsData[2]': defaultColumnsData[2].concat('31日')
@@ -296,8 +274,29 @@ Component({
               }
             }
           }
-
+        }else{
+          if(bigMonth.find((v) => parseInt(v) == parseInt(columnsData[1][val[1]]))){
+            this.setData({
+              'columnsData[2]': defaultColumnsData[2].concat('31日')
+            })
+          }else if(smallMonth.find((v) => parseInt(v) == parseInt(columnsData[1][val[1]]))){
+            this.setData({
+              'columnsData[2]': defaultColumnsData[2]
+            })
+          } else if(columnsData[1][val[1]] === '2月' ) {
+            if (isLeapYear(parseInt(columnsData[0][val[0]]))) {
+              this.setData({
+                'columnsData[2]': defaultColumnsData[2].slice(0, -1)
+              })
+            } else {
+              this.setData({
+                'columnsData[2]': defaultColumnsData[2].slice(0, -2)
+              })
+            }
+          }
         }
+
+      }
       //验证
       val = this._validate(val);
       this.data.lastValue = val;
@@ -470,6 +469,35 @@ Component({
           this.setData({
             'columnsData[1]': createStartToEndMonthColumnsData({startMonth:tempStartArr[1],endMonth:tempEndArr[1]}),
           })
+          if(tempArr[1] === tempEndArr[1]){//默认跟end同年同月
+            this.setData({
+              'columnsData[2]': createEndDayColumnsData({endDay:tempEndArr[2]})
+            })
+          }else if(tempArr[1] === tempStartArr[1]){//默认跟start同年同月
+            this.setData({
+              'columnsData[2]': createStartDayColumnsData({startYear:tempStartArr[0],startMonth:tempStartArr[1], startDay:tempStartArr[2]})
+            })
+          } else{
+            if(tempArr[1] === 2){
+              if(isLeapYear(tempArr[0])){
+                this.setData({
+                  'columnsData[2]':createEndDayColumnsData({endDay: 29})
+                })
+              }else{
+                this.setData({
+                  'columnsData[2]':createEndDayColumnsData({endDay: 28})
+                })
+              }
+            }else if(bigMonth.find((v) => parseInt(v) == parseInt(tempArr[1]))){
+              this.setData({
+                'columnsData[2]': defaultColumnsData[2].concat('31日')
+              })
+            }else if(smallMonth.find((v) => parseInt(v) == parseInt(tempArr[1]))){
+              this.setData({
+                'columnsData[2]': defaultColumnsData[2]
+              })
+            }
+          }
         }
         if(tempArr[0] !== tempEndArr[0] && tempArr[0] === tempStartArr[0]){
           if(tempArr[1] === 2){
