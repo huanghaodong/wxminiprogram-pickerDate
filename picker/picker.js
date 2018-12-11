@@ -95,7 +95,6 @@ Component({
           if (newVal === '' || this._compareDate()) return;
           this._setTempData();
           this._setDefault()
-
       }
     },
     endDate:{
@@ -395,6 +394,8 @@ Component({
     },
     _setDefault (inBackData) {
       let {startDate, endDate ,defaultDate} = this.properties;
+      startDate = startDate === '' ? '1970-1-1' : startDate;
+      endDate = endDate === '' ? '2169-12-31' : endDate;
       this.setData({
         columnsData: this._getColumnsDataFromStartAndEnd(startDate, endDate)
       })

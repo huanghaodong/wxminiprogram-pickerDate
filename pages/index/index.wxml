@@ -5,8 +5,8 @@
 	isShowPicker="{{isShow_01}}"
 	bindsure="sureCallBack_01"
 	bindcancle="cancleCallBack_01"
-	startDate="2018-6-28"
-	endDate="2018-12-12"
+	startDate="{{temp1}}"
+	endDate="{{temp}}"
 	defaultDate="2018-8-03"
 ></picker>
 <!--<button bindtap="showPicker_02">打开pickerDate2</button>-->

@@ -6,23 +6,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    start:'',
-    isShow_01: false,
-    listData_01:[['太阳', '月亮', '星星']],
-    picker_01_data:[],
-
-    isShow_02: false,
-    listData_02:[['太阳', '月亮', '星星']],
-    picker_02_data:[],
-
-    temp:'2018-12-12'
+    temp:'',
+    temp1:''
   },
   onLoad () {
-    setTimeout(()=>{
       this.setData({
-        temp: '2018-11-11'
+        temp: '2018-11-11',
+        temp1: '2018-6-28'
       })
-    },5000)
   },
   showPicker_01: function () {
     this.setData({
