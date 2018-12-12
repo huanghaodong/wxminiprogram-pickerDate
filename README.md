@@ -76,5 +76,7 @@
  
  - 在使用该组件的page页面中，禁止出现'.wrapper'类名，否则会出现样式问题，如果用到请换个名字。（ 我也觉得很奇怪 ）
  
+ - **模态框无法覆盖原生组件（参考[原生组件](https://developers.weixin.qq.com/miniprogram/dev/component/native-component.html)），所以如果页面有原生组件，可以在isShowPicker为true设置原生组件display:none**。
+ 
 ## 如果觉得有用，请给个start，谢谢
 # wxminiprogram-pickerDate
