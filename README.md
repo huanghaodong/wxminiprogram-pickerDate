@@ -74,5 +74,7 @@
 
  - 必须在bindsure和bindcancle中将isShowPicker设为false。
  
+ - 在使用该组件的page页面中，禁止出现'.wrapper'类名，否则会出现样式问题，如果用到请换个名字。（ 我也觉得很奇怪 ）
+ 
 ## 如果觉得有用，请给个start，谢谢
 # wxminiprogram-pickerDate
