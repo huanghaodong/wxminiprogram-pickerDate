@@ -66,6 +66,10 @@ function createEndDayColumnsData ({endDay}) {
   let endDayColumnsData = endDay === 1 ? [`${endDay}日`] : [...new Array(endDay).keys()].map((v, i) => `${i + 1}日`)
   return endDayColumnsData;
 }
+function createStartToEndDayColumnsData ({startDay,endDay}) {
+  let endDayColumnsData =  [...new Array(endDay - startDay + 1).keys()].map((v, i) => `${i + startDay}日`)
+  return endDayColumnsData;
+}
 function createStartColumnsData ({yearLength, startYear, startMonth, startDay}) {
   let tempStartColumnsData = [[], [], []];
   tempStartColumnsData[0] = createStartYearColumnsData({yearLength, startYear})
@@ -406,6 +410,32 @@ Component({
         defaultDate = inBackData;
       }
       let tempArr = this._formateDateStrToArr(defaultDate)
+      if(startDate && endDate && tempArr.length === 1){//没得默认时间的时候tempArr == [0]
+        let tempStartArr = this._formateDateStrToArr(startDate);
+        let tempEndArr = this._formateDateStrToArr(endDate);
+        if(tempEndArr[0] === tempStartArr[0]){//起止同年
+          this.setData({
+            'columnsData[1]': createStartToEndMonthColumnsData({startMonth:tempStartArr[1],endMonth:tempEndArr[1]}),
+          })
+          if(tempEndArr[1] === tempStartArr[1]){//起止同年且起止同月
+            this.setData({
+              'columnsData[2]': createStartToEndDayColumnsData({startDay:tempStartArr[2], endDay:tempEndArr[2]})
+            })
+          }else{//起止同年,起止不同月
+            this.setData({
+              'columnsData[2]': createStartDayColumnsData({startYear:tempStartArr[0],startMonth:tempStartArr[1], startDay:tempStartArr[2]})
+            })
+          }
+        }else{
+          this.setData({
+            'columnsData[1]': createStartMonthColumnsData({startMonth:tempStartArr[1]}),
+          })
+          this.setData({
+            'columnsData[2]': createStartDayColumnsData({startYear:tempStartArr[0],startMonth:tempStartArr[1], startDay:tempStartArr[2]})
+          })
+        }
+
+      }
       if(startDate && endDate && tempArr.length === 3){//如果有起止
         let tempStartArr = this._formateDateStrToArr(startDate);
         let tempEndArr = this._formateDateStrToArr(endDate);
@@ -413,10 +443,12 @@ Component({
           this.setData({
             'columnsData[1]': createStartMonthColumnsData({startMonth:tempStartArr[1]}),
           })
+          console.log(createStartMonthColumnsData({startMonth:tempStartArr[1]}))
           if(tempArr[1] === tempStartArr[1]){//默认同年并且跟start同月
             this.setData({
               'columnsData[2]': createStartDayColumnsData({startYear:tempStartArr[0],startMonth:tempStartArr[1], startDay:tempStartArr[2]})
             })
+            console.log(createStartDayColumnsData({startYear:tempStartArr[0],startMonth:tempStartArr[1], startDay:tempStartArr[2]}))
           }else{//同年并且跟start不同月
             if(tempArr[1] === 2){
               if(isLeapYear(tempArr[0])){
@@ -443,6 +475,8 @@ Component({
           this.setData({
             'columnsData[1]': createEndMonthColumnsData({endMonth:tempEndArr[1]}),
           })
+          console.log(22,createEndMonthColumnsData({endMonth:tempEndArr[1]}))
+
           if(tempArr[1] === tempStartArr[1]){//同年并且跟end同月
             this.setData({
               'columnsData[2]': createEndDayColumnsData({endDay:tempEndArr[2]})
@@ -473,6 +507,7 @@ Component({
           this.setData({
             'columnsData[1]': createStartToEndMonthColumnsData({startMonth:tempStartArr[1],endMonth:tempEndArr[1]}),
           })
+          console.log(33,createStartToEndMonthColumnsData({startMonth:tempStartArr[1],endMonth:tempEndArr[1]}))
           if(tempArr[1] === tempEndArr[1]){//默认跟end同年同月
             this.setData({
               'columnsData[2]': createEndDayColumnsData({endDay:tempEndArr[2]})
@@ -503,7 +538,7 @@ Component({
             }
           }
         }
-        if(tempArr[0] !== tempEndArr[0] && tempArr[0] === tempStartArr[0]){
+        if(tempArr[0] !== tempEndArr[0] && tempArr[0]!== tempStartArr[0]){
           if(tempArr[1] === 2){
             if(isLeapYear(tempArr[0])){
               this.setData({
