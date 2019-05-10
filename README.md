@@ -1,4 +1,4 @@
-![avatar](http://thyrsi.com/t6/628/1544253510x2890171534.gif)
+![avatar](http://gwjyhs.com/t6/702/1557452928x2890171761.gif)
 
 * 支持自定义样式
 * 支持自定义起止日期,且ios和android效果一致（原生小程序picker日期选择如果设置了起止日期，在ios和android上效果不一致）
