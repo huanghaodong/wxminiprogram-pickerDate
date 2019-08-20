@@ -1,4 +1,4 @@
-![avatar](http://chuantu.xyz/t6/702/1559266368x2073530527.gif)
+![avatar](http://chuantu.xyz/t6/702/1566271210x1033347913.gif)
 
 * 支持自定义样式
 * 支持自定义起止日期,且ios和android效果一致（原生小程序picker日期选择如果设置了起止日期，在ios和android上效果不一致）
